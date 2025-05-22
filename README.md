@@ -21,3 +21,7 @@ ALTER USER postgres WITH PASSWORD 'enter_password';
 \q
 ```
 
+To install VS Code:
+```
+sudo snap install code --classic
+```
