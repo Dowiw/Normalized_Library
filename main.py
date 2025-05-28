@@ -8,7 +8,7 @@ PASSWORD = "somerandompassword"
 PORT = "5432"
 
 # Database to connect to at first
-initial_db = "mydb"
+initial_db = "postgres"
 
 # Name of database to create
 new_db_name = "library"
@@ -21,12 +21,10 @@ connection = psycopg2.connect(
     host = HOST,
     port = PORT
 )
-
 # Enable for database creations without transactions
 connection.autocommit = True
 
-
-# Cursor
+# Cursor for execution and query inputs
 cursor = connection.cursor()
 
 # First sql module to create database
@@ -34,20 +32,115 @@ cursor.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(new_db_name))
 print(f"Database '{new_db_name}' created successfully.")
 
 # Initially connect to new db using root
-new_connection = psycopg2.connect("host = localhost dbname = library user = root password = root")
+new_connection = psycopg2.connect(
+    dbname = new_db_name,
+    user = USER,
+    password = PASSWORD,
+    host = HOST,
+    port = PORT
+)
+new_connection.autocommit = True
 cursor = new_connection.cursor()
 
-# Create staff table (id, first_name, last_name, shift)
-cursor.execute("CREATE TABLE IF NOT EXISTS staff("
-"staff_id INT PRIMARY KEY NOT NULL," \
-"staff_first_name TEXT NOT NULL," \
-"staff_last_name TEXT NOT NULL," \
-"staff_shift TEXT NOT NULL")
-
 # Query all records
-cursor.execute("SELECT * FROM staff")
-cursor.execute("SELECT COUNT(*) FROM staff")
-print(cursor.fetchall())
+# cursor.execute("SELECT * FROM staff")
+# cursor.execute("SELECT COUNT(*) FROM staff")
+# print(cursor.fetchall())
 
-cursor.execute("INSERT INTO staff (staff_id, staff_first_name, staff_last_name, staff_shift)" \
-"VALUES (1, 'John', 'Doe', 'Morning')")
+
+# CREATE ALL TABLES
+# ID Type table
+cursor.execute("""
+CREATE TABLE id_type_code (
+    id_type_code INT PRIMARY KEY,
+    id_type_name TEXT NOT NULL
+)
+""")
+
+# Shift table
+cursor.execute("""
+CREATE TABLE shift (
+    shift_id INT PRIMARY KEY,
+    shift_name TEXT NOT NULL,
+    shift_start TIME NOT NULL,
+    shift_end TIME NOT NULL               
+)
+""")
+
+# Publisher table
+cursor.execute("""
+CREATE TABLE publisher (
+    publisher_id INT PRIMARY KEY,
+    publisher_name TEXT NOT NULL
+)
+""")
+
+# Author table
+cursor.execute("""
+CREATE TABLE author (
+    author_id INT PRIMARY KEY,
+    author_name TEXT NOT NULL
+)
+""")
+
+# User table
+cursor.execute("""
+CREATE TABLE "user" (
+    user_id INT PRIMARY KEY,
+    user_name TEXT NOT NULL,
+    id_type INT REFERENCES id_type_code(id_type_code),
+    phone_no TEXT,
+    email TEXT
+)
+""")
+
+# Book Table
+cursor.execute("""
+CREATE TABLE book (
+    book_id INT PRIMARY KEY,
+    book_title TEXT NOT NULL,
+    author_id INT REFERENCES author(author_id),
+    publisher_id INT REFERENCES publisher(publisher_id)
+)
+""")
+
+# Copy table
+cursor.execute("""
+CREATE TABLE copy (
+    copy_id INT PRIMARY KEY,
+    book_id INT REFERENCES book(book_id),
+    status TEXT NOT NULL
+)
+""")
+
+# Loan table
+cursor.execute("""
+CREATE TABLE loan (
+    loan_id INT PRIMARY KEY,
+    user_id INT REFERENCES "user"(user_id),
+    copy_id INT REFERENCES copy(copy_id),
+    borrow_date DATE,
+    borrow_time TIME,
+    due_date DATE
+)
+""")
+
+# Return table
+cursor.execute("""
+CREATE TABLE return (
+    return_id INT PRIMARY KEY,
+    loan_id INT REFERENCES loan(loan_id),
+    return_date DATE,
+    return_time TIME
+)
+""")
+
+# Staff table
+cursor.execute("""
+CREATE TABLE staff (
+    staff_id INT PRIMARY KEY,
+    staff_name TEXT NOT NULL,
+    shift_id INT REFERENCES shift(shift_id)
+)
+""")
+
