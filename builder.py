@@ -95,6 +95,15 @@ CREATE TABLE book (
 )
 """)
 
+# Staff table
+cursor.execute("""
+CREATE TABLE staff (
+    staff_id INT PRIMARY KEY,
+    staff_name TEXT NOT NULL,
+    shift_id INT REFERENCES shift(shift_id)
+)
+""")
+
 # Copy table
 cursor.execute("""
 CREATE TABLE copy (
@@ -108,6 +117,7 @@ CREATE TABLE copy (
 cursor.execute("""
 CREATE TABLE loan (
     loan_id INT PRIMARY KEY,
+    staff_id INT REFERENCES staff(staff_id),
     user_id INT REFERENCES "user"(user_id),
     copy_id INT REFERENCES copy(copy_id),
     borrow_date DATE,
@@ -120,18 +130,10 @@ CREATE TABLE loan (
 cursor.execute("""
 CREATE TABLE return (
     return_id INT PRIMARY KEY,
+    staff_id INT REFERENCES staff(staff_id),
     loan_id INT REFERENCES loan(loan_id),
     return_date DATE,
     return_time TIME
-)
-""")
-
-# Staff table
-cursor.execute("""
-CREATE TABLE staff (
-    staff_id INT PRIMARY KEY,
-    staff_name TEXT NOT NULL,
-    shift_id INT REFERENCES shift(shift_id)
 )
 """)
 
