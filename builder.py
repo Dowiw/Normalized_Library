@@ -1,3 +1,4 @@
+import os
 import csv
 import psycopg2
 from psycopg2 import sql
@@ -5,7 +6,7 @@ from psycopg2 import sql
 # Configuration
 HOST = "localhost"
 USER = "postgres"
-PASSWORD = "somerandompassword"
+PASSWORD = os.environ.get("DB_PASSWORD","")
 PORT = "5432"
 initial_db = "postgres" # Initial Database
 new_db_name = "library" # Database to create
