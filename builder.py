@@ -2,17 +2,13 @@ import csv
 import psycopg2
 from psycopg2 import sql
 
-# Database credentials
+# Configuration
 HOST = "localhost"
 USER = "postgres"
 PASSWORD = "somerandompassword"
 PORT = "5432"
-
-# Database to connect to at first
-initial_db = "postgres"
-
-# Name of database to create
-new_db_name = "library"
+initial_db = "postgres" # Initial Database
+new_db_name = "library" # Database to create
 
 # Connect to initial database first ('posgres')
 connection = psycopg2.connect(
@@ -154,7 +150,22 @@ INSERT INTO shift (shift_id, shift_name, shift_start, shift_end)
 # ID Type table
 cursor.execute("""
 INSERT INTO id_type_code (id_type_code, id_type_name)
-    (1, 'Driver''s License'),
+    VALUES (1, 'Driver''s License'),
     (2, 'Passport'),
     (3, 'Residence Permit')
 """)
+
+with open('staff.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader)
+    for row in reader:
+        cursor.execute(
+            """INSERT INTO staff (staff_id, staff_name, shift_id)
+            VALUES (%s, %s, %s)
+            ON CONFLICT (staff_id) DO UPDATE
+            SET staff_name = EXCLUDED.staff_name,
+            shift_id = EXCLUDED.shift_id;""",
+            row
+        )
+
+cursor.execute("""DROP DATABASE library""")
