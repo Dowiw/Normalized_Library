@@ -1,3 +1,4 @@
+import csv
 import psycopg2
 from psycopg2 import sql
 
@@ -42,12 +43,6 @@ new_connection = psycopg2.connect(
 new_connection.autocommit = True
 cursor = new_connection.cursor()
 
-# Query all records
-# cursor.execute("SELECT * FROM staff")
-# cursor.execute("SELECT COUNT(*) FROM staff")
-# print(cursor.fetchall())
-
-
 # CREATE ALL TABLES
 # ID Type table
 cursor.execute("""
@@ -63,7 +58,7 @@ CREATE TABLE shift (
     shift_id INT PRIMARY KEY,
     shift_name TEXT NOT NULL,
     shift_start TIME NOT NULL,
-    shift_end TIME NOT NULL               
+    shift_end TIME NOT NULL
 )
 """)
 
@@ -144,3 +139,22 @@ CREATE TABLE staff (
 )
 """)
 
+# FILL THE TABLES UP
+
+# First filling up tables without foreign keys
+# Shift table
+cursor.execute("""
+INSERT INTO shift (shift_id, shift_name, shift_start, shift_end)
+    VALUES (1, 'Morning', '08:00:00', '12:00:00'),
+    (2, 'Afternoon', '12:00:00', '16:00:00'),
+    (3, 'Evening', '16:00:00', '20:00:00'),
+    (4, 'Night', '18:00:00', '22:00:00')
+""")
+
+# ID Type table
+cursor.execute("""
+INSERT INTO id_type_code (id_type_code, id_type_name)
+    (1, 'Driver''s License'),
+    (2, 'Passport'),
+    (3, 'Residence Permit')
+""")

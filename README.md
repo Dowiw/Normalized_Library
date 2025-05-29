@@ -25,3 +25,8 @@ To install VS Code:
 ```
 sudo snap install code --classic
 ```
+
+Ensure that you have a database already created with your psql user.
+Replace this as you initial_database_name variable.
+
+To execute a certain part of the python script in VSCode, use shift + enter.
