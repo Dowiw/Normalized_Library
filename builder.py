@@ -185,6 +185,8 @@ INSERT INTO id_type_code (id_type_code, id_type_name)
 """)
 
 print("Filling tables with foreign keys...")
+
+# Staff table
 print("Filling staff table...")
 with open('staff.csv', 'r') as f:
     reader = csv.reader(f)
@@ -199,6 +201,7 @@ with open('staff.csv', 'r') as f:
             row
         )
 
+# Publisher table
 print("Filling publisher table...")
 with open('publisher.csv', 'r') as f:
     reader = csv.reader(f)
@@ -212,6 +215,7 @@ with open('publisher.csv', 'r') as f:
             row
         )
 
+# Author table
 print("Filling author table...")
 with open('author.csv', 'r') as f:
     reader = csv.reader(f)
@@ -225,6 +229,7 @@ with open('author.csv', 'r') as f:
             row
         )
 
+# Book table
 print("Filling book table...")
 with open('book.csv', 'r') as f:
     reader = csv.reader(f)
@@ -240,6 +245,7 @@ with open('book.csv', 'r') as f:
             row
         )
 
+# User table
 print("Filling user table...")
 with open('user.csv', 'r') as f:
     reader = csv.reader(f)
@@ -256,6 +262,7 @@ with open('user.csv', 'r') as f:
             row
         )
 
+# Copy table
 print("Filling copy table...")
 with open('copy.csv', 'r') as f:
     reader = csv.reader(f)
@@ -270,6 +277,7 @@ with open('copy.csv', 'r') as f:
             row
         )
 
+# Loan table
 print("Filling loan table...")
 with open('loan.csv', 'r') as f:
     reader = csv.reader(f)
@@ -288,6 +296,7 @@ with open('loan.csv', 'r') as f:
             row
         )
 
+# Return table
 print("Filling return table...")
 with open('return.csv', 'r') as f:
     reader = csv.reader(f)
