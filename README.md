@@ -1,7 +1,17 @@
 # UE_library
 A query container for a normalized library database.
+- Take a look at 1_final_db.png for a 3NF format of the database.
 
-This library will be made from the ground up.
+This project will:
+- Build its own library database using the python file builder.
+- Have a query python file to house relevant python queries.
+
+# Requirements
+- This runs on python3.
+- Ensure that you have a database already created with your psql user.
+- Ensure that this database is named properly as the initial_database_name.
+
+# Notes
 Remember, you must first log in to your postgres user.
 
 Like:
@@ -25,8 +35,5 @@ To install VS Code:
 ```
 sudo snap install code --classic
 ```
-
-Ensure that you have a database already created with your psql user.
-Replace this as you initial_database_name variable.
 
 To execute a certain part of the python script in VSCode, use shift + enter.
