@@ -153,6 +153,11 @@ INSERT INTO id_type_code (id_type_code, id_type_name)
     VALUES (1, 'Driver''s License'),
     (2, 'Passport'),
     (3, 'Residence Permit')
+    (4, 'Student ID'),
+    (5, 'Employee ID'),
+    (6, 'Voter ID'),
+    (7, 'Work Permit'),
+    (8, 'Military ID')
 """)
 
 with open('staff.csv', 'r') as f:
@@ -168,4 +173,14 @@ with open('staff.csv', 'r') as f:
             row
         )
 
-cursor.execute("""DROP DATABASE library""")
+with open('publisher.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader)
+    for row in reader:
+        cursor.execute(
+            """INSERT INTO publisher (publisher_id, publisher_name)
+            VALUES (%s, %s)
+            ON CONFLICT (publisher_id) DO UPDATE
+            SET publisher_name = EXCLUDED.publisher_name;""",
+            row
+        )
