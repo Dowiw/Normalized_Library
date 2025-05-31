@@ -4,7 +4,7 @@ A query container for a normalized library database.
 
 This project will:
 - Build its own library database using the python file builder.
-- Have a query python file to house relevant python queries.
+- Have a query sql file to house relevant business queries.
 
 # Requirements
 - This runs on python3.
@@ -35,5 +35,3 @@ To install VS Code:
 ```
 sudo snap install code --classic
 ```
-
-To execute a certain part of the python script in VSCode, use shift + enter.
