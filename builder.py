@@ -186,9 +186,11 @@ INSERT INTO id_type_code (id_type_code, id_type_name)
 
 print("Filling tables with foreign keys...")
 
+csv_dir = 'csv_data'
+
 # Staff table
 print("Filling staff table...")
-with open('staff.csv', 'r') as f:
+with open(f'{csv_dir}/staff.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
@@ -203,7 +205,7 @@ with open('staff.csv', 'r') as f:
 
 # Publisher table
 print("Filling publisher table...")
-with open('publisher.csv', 'r') as f:
+with open(f'{csv_dir}/publisher.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
@@ -217,7 +219,7 @@ with open('publisher.csv', 'r') as f:
 
 # Author table
 print("Filling author table...")
-with open('author.csv', 'r') as f:
+with open(f'{csv_dir}/author.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
@@ -231,7 +233,7 @@ with open('author.csv', 'r') as f:
 
 # Book table
 print("Filling book table...")
-with open('book.csv', 'r') as f:
+with open(f'{csv_dir}/book.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
@@ -247,7 +249,7 @@ with open('book.csv', 'r') as f:
 
 # User table
 print("Filling user table...")
-with open('user.csv', 'r') as f:
+with open(f'{csv_dir}/user.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
@@ -264,7 +266,7 @@ with open('user.csv', 'r') as f:
 
 # Copy table
 print("Filling copy table...")
-with open('copy.csv', 'r') as f:
+with open(f'{csv_dir}/copy.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
@@ -279,7 +281,7 @@ with open('copy.csv', 'r') as f:
 
 # Loan table
 print("Filling loan table...")
-with open('loan.csv', 'r') as f:
+with open(f'{csv_dir}/loan.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:
@@ -298,7 +300,7 @@ with open('loan.csv', 'r') as f:
 
 # Return table
 print("Filling return table...")
-with open('return.csv', 'r') as f:
+with open(f'{csv_dir}/return.csv', 'r') as f:
     reader = csv.reader(f)
     next(reader)
     for row in reader:

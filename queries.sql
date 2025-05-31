@@ -1,9 +1,6 @@
 --- 1. Finding the average borrow length of each books that are over 10 days
-SELECT 
-   	b.book_title,
-    ROUND(AVG(r.return_date - l.borrow_date), 2) AS avg_days_borrowed
-FROM 
-    loan l
+SELECT b.book_title, ROUND(AVG(r.return_date - l.borrow_date), 2) AS avg_days_borrowed
+    FROM  loan l
 JOIN 
     return r ON l.loan_id = r.loan_id
 JOIN 
