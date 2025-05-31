@@ -9,11 +9,17 @@ HAVING COUNT(b.book_id) > 3;
 
 -- 2. Find All Books Borrowed in a Date Range (Filtering with WHERE/BETWEEN)
 -- List all books borrowed between January and March 2025, with their borrowers.
-SELECT b.title, br.borrow_date, u.user_name
-FROM borrow br
-JOIN book b ON br.book_id = b.book_id
-JOIN user u ON br.user_id = u.user_id
-WHERE br.borrow_date BETWEEN '2025-01-01' AND '2025-03-31';
+SELECT
+  l.borrow_date,
+  b.book_title,
+  c.copy_id,
+  u.user_name
+FROM loan l
+JOIN "copy" c ON l.copy_id = c.copy_id
+JOIN book b ON c.book_id = b.book_id
+JOIN "user" u ON l.user_id = u.user_id
+WHERE l.borrow_date BETWEEN '2025-01-01' AND '2025-03-31'
+ORDER BY borrow_date;
 
 
 -- 3. Top 5 Most Borrowed Books (JOIN, Aggregation, ORDER BY)
