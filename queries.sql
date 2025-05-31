@@ -5,18 +5,17 @@ JOIN
     return r ON l.loan_id = r.loan_id
 JOIN 
     book b ON b.book_id = b.book_id
-GROUP BY 
-   	book_title
+GROUP BY book_title
 HAVING AVG(r.return_date - l.borrow_date) > 10;
 
 --- 2.  Finding how many times each books have been borrowed this year
 SELECT 
-    b.book_title,
+    b.book_id,
     COUNT(*) AS borrow_count
 FROM 
     loan l
 JOIN 
-    book b ON b.book_id = b.book_id
+    "copy" b ON b.book_id = b.book_id
 WHERE 
     l.borrow_date BETWEEN '2025-01-01' AND '2025-12-31'
 GROUP BY 
@@ -29,7 +28,7 @@ SELECT
 FROM 
     loan l
 JOIN 
-    users u ON l.user_id = u.user_id
+    "user" u ON l.user_id = u.user_id
 GROUP BY 
     u.user_name
 ORDER BY 
@@ -43,7 +42,7 @@ FROM (
     SELECT 
         u.user_id, COUNT(*) AS total
     FROM 
-        users u
+        "user" u
     JOIN 
         loan l ON u.user_id = l.user_id
     GROUP BY 
