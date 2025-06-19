@@ -1,6 +1,8 @@
-# UE_library
+# Normalized Library
 A query container for a normalized library database.
 - Take a look at 1_final_db.png for a 3NF format of the database.
+
+Made to fulfill Big Data & Analytics Course, Assignment 1
 
 This project will:
 - Build its own library database using the python file builder.
@@ -35,3 +37,6 @@ To install VS Code:
 ```
 sudo snap install code --classic
 ```
+
+
+made with Python and Postgresql, KB
