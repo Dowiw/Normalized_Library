@@ -1,6 +1,7 @@
 # Normalized Library
 A query container for a normalized library database.
 - Take a look at 1_final_db.png for a 3NF format of the database.
+<img src="1_final_db.png" alt="3NF format of a library database"/>
 
 Made to fulfill Big Data & Analytics Course, Assignment 1
 
